@@ -1,0 +1,190 @@
+{
+  "name": "obsidian-notes",
+  "displayName": "Obsidian Notes",
+  "description": "Browse and manage Obsidian vault notes in VS Code",
+  "version": "1.0.0",
+  "publisher": "gsportelli",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "obsidian",
+    "notes",
+    "markdown",
+    "vault"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "obsidian-explorer": [
+        {
+          "id": "obsidianNotes",
+          "name": "Notes",
+          "when": "obsidianVaultConfigured"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "obsidian-explorer",
+          "title": "Obsidian Notes",
+          "icon": "$(notebook)"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "obsidianNotes.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "obsidianNotes.configureVault",
+        "title": "Configure Vault Path"
+      },
+      {
+        "command": "obsidianNotes.openFile",
+        "title": "Open File"
+      },
+      {
+        "command": "obsidianNotes.createFile",
+        "title": "New File",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "obsidianNotes.createFolder",
+        "title": "New Folder",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "obsidianNotes.deleteItem",
+        "title": "Delete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "obsidianNotes.renameItem",
+        "title": "Rename",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "obsidianNotes.search",
+        "title": "Search in Vault",
+        "icon": "$(search)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "obsidianNotes.refresh",
+          "when": "view == obsidianNotes",
+          "group": "navigation"
+        },
+        {
+          "command": "obsidianNotes.search",
+          "when": "view == obsidianNotes",
+          "group": "navigation"
+        },
+        {
+          "command": "obsidianNotes.createFile",
+          "when": "view == obsidianNotes",
+          "group": "navigation"
+        },
+        {
+          "command": "obsidianNotes.createFolder",
+          "when": "view == obsidianNotes",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "obsidianNotes.openFile",
+          "when": "view == obsidianNotes && viewItem == file",
+          "group": "inline"
+        },
+        {
+          "command": "obsidianNotes.createFile",
+          "when": "view == obsidianNotes && viewItem == folder",
+          "group": "inline@1"
+        },
+        {
+          "command": "obsidianNotes.createFolder",
+          "when": "view == obsidianNotes && viewItem == folder",
+          "group": "inline@2"
+        },
+        {
+          "command": "obsidianNotes.renameItem",
+          "when": "view == obsidianNotes",
+          "group": "7_modification@1"
+        },
+        {
+          "command": "obsidianNotes.deleteItem",
+          "when": "view == obsidianNotes",
+          "group": "7_modification@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Obsidian Notes",
+      "properties": {
+        "obsidianNotes.vaultPath": {
+          "type": "string",
+          "description": "Path to Obsidian vault",
+          "default": ""
+        },
+        "obsidianNotes.ignorePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".obsidian/**",
+            "*.tmp",
+            ".DS_Store",
+            "Thumbs.db"
+          ],
+          "description": "File patterns to ignore (supports glob patterns)"
+        },
+        "obsidianNotes.showHiddenFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show hidden files and folders"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/minimatch": "^5.1.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "minimatch": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gsportelli/vscode-obsidian-notes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gsportelli/vscode-obsidian-notes/issues"
+  },
+  "homepage": "https://github.com/gsportelli/vscode-obsidian-notes#readme",
+  "license": "MIT"
+}
